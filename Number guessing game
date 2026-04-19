@@ -1,28 +1,48 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+
+using namespace std;
 
 int main() {
     int number, guess, attempts = 0;
+    const int maxAttempts = 4;
 
+ 
     srand(time(0));
-    number = rand() % 100 + 1; // Random number between 1–100
+    number = rand() % 100 + 1;
 
-    printf("🎮 Welcome to Number Guessing Game!\n");
+    cout << " Welcome to Number Guessing Game!" << endl;
+    cout << "Guess a number between 1 and 100" << endl;
+    cout << "You have only 4 chances!" << endl;
 
-    do {
-        printf("Enter your guess (1–100): ");
-        scanf("%d", &guess);
+    while (attempts < maxAttempts) {
+        cout << "Enter your guess: ";
+        cin >> guess;
+
+    
+        if (guess > 100) {
+            cout << "❌ Invalid number! Please enter a number between 1 and 100.\n";
+            continue; 
+        }
+
         attempts++;
 
-        if (guess > number)
-            printf("Too High!\n");
-        else if (guess < number)
-            printf("Too Low!\n");
-        else
-            printf("🎉 Correct! You guessed in %d attempts.\n", attempts);
+        if (guess > number) {
+            cout << "Too high! Try again.\n";
+        }
+        else if (guess < number) {
+            cout << "Too low! Try again.\n";
+        }
+        else {
+            cout << "🎉 Correct! You guessed it in " << attempts << " attempts.\n";
+            return 0;
+        }
 
-    } while (guess != number);
+        cout << "Remaining attempts: " << (maxAttempts - attempts) << endl;
+    }
+
+    cout << "❌ Game Over! The correct number was: " << number << endl;
 
     return 0;
 }
